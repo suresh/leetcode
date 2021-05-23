@@ -2,7 +2,6 @@
 # order traversal of Binary Tree
 from collections import deque
 
-
 class BinarySearchTree:
 
     class __Node:
@@ -51,6 +50,9 @@ class BinarySearchTree:
             if root is None:
                 return BinarySearchTree.__Node(val)
 
+            if val is None:
+                return root
+
             if val < root.get_val():
                 root.set_left(__insert(root.get_left(), val))
             else:
@@ -91,6 +93,20 @@ def post_order(root):
         print(root.val, end=' ')
 
 
+def level_order(root):
+
+    if root is None: return
+    q = deque()
+    q.append(root)
+
+    while q:
+        current = q.popleft()
+        # print(f'current: {current}')
+        print(f'node: {current.val}', end=' ')
+        if current.left: q.append(current.left)
+        if current.right: q.append(current.right)
+
+
 def main():
 
     # lst = [5, 4, 8, 11, None, 13, 4, 7, 2, None, None, None, 1]
@@ -102,21 +118,27 @@ def main():
     for x in lst:
         tree.insert(x)
 
-    for x in tree:
-        print(x)
+    # for x in tree:
+    #     print(x)
 
-    print('in order traversal ->')
-    in_order(tree.root)
-    print()
+    # print('in order traversal ->')
+    # in_order(tree.root)
+    # print()
 
-    print('pre order traversal ->')
-    pre_order(tree.root)
-    print()
+    # print('pre order traversal ->')
+    # pre_order(tree.root)
+    # print()
 
-    print('post order traversal ->')
-    post_order(tree.root)
+    # print('post order traversal ->')
+    # post_order(tree.root)
+    # print()
+
+    print('level order traversal ->')
+    level_order(tree.root)
     print()
 
     print('Done')
+
+
 if __name__ == "__main__":
     main()
